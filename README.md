@@ -1,4 +1,7 @@
-# RoboClaws2024
-RoboClas code for 2024 for the vex u competition.
-The Robot1 file is the code for the 15x15x15
-The Robot2 file is the code for the 24x24x24
+# RoboClaws Code 2024
+
+This is the code for the RoboClaws 2024 season in vexU
+
+# File Management
+* Robot1 - 15x15x15 Robot1
+* Robot2 - 24x24x24 Robot2
