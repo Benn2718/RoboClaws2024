@@ -15,6 +15,8 @@ using namespace vex;
 competition Competition;
 
 // define your global instances of motors and other devices here
+brain robo2_Brain;
+
 motor frontLeft = motor(PORT11, ratio6_1, true);
 motor backLeft = motor(PORT20, ratio6_1, true);
 motor_group LeftDrive = motor_group(frontLeft, backLeft);
@@ -23,9 +25,11 @@ motor frontRight =  motor(PORT1, ratio6_1, false);
 motor backRight = motor(PORT10, ratio6_1, false);
 motor_group RightDrive = motor_group(frontRight,backRight);
 
+digital_out clawGrab = digital_out(robo2_Brain.ThreeWirePort.A);
+
 //Adjusting for new gear ratio
 double adjustedPower(double originalPower){
-  return originalPower * (48.0/60.0);
+  return originalPower * (48.0/72.0);
 }
 
 controller Controller1 = controller(primary);
@@ -103,8 +107,15 @@ void usercontrol(void) {
     backRight.spin(directionType::fwd, forwardSpeed + strafe + turnSpeed, velocityUnits::pct);
     backLeft.spin(directionType::fwd, forwardSpeed - strafe - turnSpeed, velocityUnits::pct);
     **/
+   
 
-
+   //Pneumatic code: Press A to activte claw to grab.
+static bool isClawOpen = false;
+if (Controller1.ButtonA.pressing()){
+  isClawOpen = !isClawOpen;
+  clawGrab.set(isClawOpen);
+  wait(500,msec);
+}
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
